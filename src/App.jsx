@@ -83,27 +83,72 @@ function Home(){
   )
 }
 
-function Schedule(){
+function Schedule() {
   return (
     <Layout>
-      <h1 className='text-2xl font-serif mb-6'>Schedule</h1>
-      <ul className='space-y-3'>
-        {SITE.schedule.map(ev => {
-          const url = URL.createObjectURL(createICSBlob({title: ev.title, start: ev.start, end: ev.end, location: SITE.venue?.name || SITE.city }));
+      <h1 className="text-2xl font-serif mb-6">Schedule</h1>
+
+      <ul className="space-y-3">
+        {SITE.schedule.map((ev) => {
+          const url = URL.createObjectURL(
+            createICSBlob({
+              title: ev.title,
+              start: ev.start,
+              end: ev.end,
+              location: ev.location || SITE.venue?.name || SITE.city,
+            })
+          );
+
           return (
-            <li key={ev.title} className='border rounded-xl p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2'>
-              <div>
-                <div className='font-medium'>{ev.title}</div>
-                <div className='text-sm opacity-70'>{ev.location || SITE.venue?.name}</div>
+            <li
+              key={ev.title}
+              className="border rounded-xl p-4 space-y-2"
+            >
+              {/* Top row: title/location, time, add-to-calendar */}
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                <div>
+                  <div className="font-medium">{ev.title}</div>
+                  <div className="text-sm opacity-70">
+                    {ev.location || SITE.venue?.name}
+                  </div>
+                </div>
+
+                <div className="text-sm">
+                  {new Date(ev.start).toLocaleTimeString("en-US", {
+                    hour: "numeric",
+                    minute: "2-digit",
+                    timeZone: "America/New_York",
+                  })}
+                  {" – "}
+                  {new Date(ev.end).toLocaleTimeString("en-US", {
+                    hour: "numeric",
+                    minute: "2-digit",
+                    timeZone: "America/New_York",
+                  })}{" "}
+                  EST
+                </div>
+
+                <a
+                  href={url}
+                  download={`${ev.title}.ics`}
+                  className="text-sm underline w-full sm:w-auto text-center"
+                >
+                  Add to Calendar
+                </a>
               </div>
-              <div className='text-sm'>{new Date(ev.start).toLocaleTimeString("en-US", {hour:'numeric',minute:'2-digit', timeZone: "America/New_York"})} – {new Date(ev.end).toLocaleTimeString("en-US", {hour:'numeric',minute:'2-digit', timeZone: "America/New_York"})}</div>
-              <a href={url} download={`${ev.title}.ics`} className='text-sm underline w-full sm:w-auto text-center'>Add to Calendar</a>
+
+              {/* Inline note that matches your beige theme */}
+              {ev.notes && (
+                <p className="text-sm italic opacity-80 border-l-2 border-gray-300 pl-3 mt-1">
+                  {ev.notes}
+                </p>
+              )}
             </li>
-          )
+          );
         })}
       </ul>
     </Layout>
-  )
+  );
 }
 
 function Travel(){
@@ -226,34 +271,41 @@ function RSVP(){
   )
 }
 
-function FAQ(){
+function FAQ() {
   const faqs = [
     { q: 'Is there parking at the venue?', a: 'Limited; rideshare recommended.' },
-    { q: 'Are kids welcome?', a: 'We love them, there will be alchohol at the after party. You can bring kids at your own risk' },
-    { q: 'What is there to do in our free time?',a: (
-      <span>
-        Please see our{" "}
-        <a href="/things-to-do" className="underline">
-          Things To Do
-        </a>{" "}
-        section.
-      </span>
-    ),
-  },
+    { q: 'Are kids welcome?', a: 'We love them, but this is an adults-only celebration.' },
+    { 
+      q: 'What are the ceremony details?', 
+      a: 'We will update the site when we have a specific location on the beach. We are at the mercy of our wedding planners.' 
+    },
+    { 
+      q: 'What should I expect at cocktail hour?', 
+      a: 'There will be mostly champagne offered while we are taking photos. You are welcome to BYOB.' 
+    },
+    { 
+      q: 'What about the celebration?', 
+      a: 'We will have food, draft beer, basic cocktail options and more! You are welcome to bring any additional drinks you would like for yourself in case we are missing your favorite beverage. There is also a heated pool and hot tub—feel free to suit up!' 
+    },
+    { 
+      q: 'What is there to do in our free time?', 
+      a: (<span>Please see our <a href="/things-to-do" className="underline">Things To Do</a> section.</span>) 
+    },
   ];
+
   return (
     <Layout>
-      <h1 className='text-2xl font-serif mb-6'>FAQs</h1>
-      <div className='space-y-3'>
+      <h1 className="text-2xl font-serif mb-6">FAQs</h1>
+      <div className="space-y-3">
         {faqs.map(f => (
-          <details key={f.q} className='border rounded-xl p-4 bg-white/70'>
-            <summary className='font-medium cursor-pointer'>{f.q}</summary>
-            <p className='mt-2 text-sm opacity-80'>{f.a}</p>
+          <details key={f.q} className="border rounded-xl p-4 bg-white/70">
+            <summary className="font-medium cursor-pointer">{f.q}</summary>
+            <p className="mt-2 text-sm opacity-80">{f.a}</p>
           </details>
         ))}
       </div>
     </Layout>
-  )
+  );
 }
 
 function Card({ title, children }){

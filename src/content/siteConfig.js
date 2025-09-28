@@ -14,12 +14,38 @@ export const SITE = {
   schedule: [
     { title: "Ceremony", start: "2025-12-06T17:00:00-04:00", end: "2025-12-06T18:00:00-04:00", location: "Anna Maria Island Beach"},
     { title: "Cocktail Hour", start: "2025-12-06T18:00:00-04:00", end: "2025-12-06T19:00:00-04:00", location: "Anna Maria Island Beach"},
-    { title: "After Party", start: "2025-12-06T19:30:00-04:00", end: "2025-12-06T23:00:00-04:00" , location: "310 81st St. W Bradenton, FL 34209"}
+    { title: "Celebration", start: "2025-12-06T19:30:00-04:00", end: "2025-12-06T23:00:00-04:00" , location: "310 81st St. W Bradenton, FL 34209"}
   ],
   travelTips: [
     "Fly into SRQ - Sarasota/Bradenton Airport (40 min drive).",
     "Fly into TPA - Tampa Airport (1hr 15 min drive; traffic permitting).",
     "Rideshare is easiest; limited parking.",
     "Attire: beach casual."
-  ]
-}
+  ],
+  schedule: [
+    {
+      title: "Ceremony",
+      start: "2025-12-06T16:00:00-05:00",
+      end: "2025-12-06T17:00:00-05:00",
+      location: "Anna Maria Island Beach",
+      notes:
+        "We will update the site when we have a specific location on the beach. We are at the mercy of our wedding planners."
+    },
+    {
+      title: "Cocktail Hour",
+      start: "2025-12-06T17:00:00-05:00",
+      end: "2025-12-06T18:00:00-05:00",
+      location: "Anna Maria Island Beach",
+      notes:
+        "There will be mostly champagne offered while we are taking photos. You are welcome to BYOB."
+    },
+    {
+      title: "Celebration",
+      start: "2025-12-06T19:00:00-05:00",
+      end: "2025-12-06T22:00:00-05:00",
+      location: "310 81st St W, Bradenton, FL 34209",
+      notes:
+        "We will have food, draft beer, basic cocktail options and more! There is also a heated pool and hot tub—feel free to suit up!"
+    }
+  ],
+};
