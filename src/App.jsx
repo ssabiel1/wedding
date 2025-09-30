@@ -32,6 +32,24 @@ function Nav() {
   
   return (
     <nav className='sticky top-0 z-50 border-b bg-white/80 backdrop-blur'>
+    {/* Announcement bar */}
+      <div
+        className="px-4 py-2 text-center text-sm bg-amber-100 text-amber-900 border-b border-amber-200"
+        aria-live="polite"
+      >
+        Ceremony will be on the beach 🌊 — final spot will be shared here soon
+        <span
+          className="ml-2 inline-block align-middle w-2 h-2 rounded-full bg-amber-600"
+          style={{ animation: 'blink 1s steps(2, start) infinite' }}
+          aria-hidden="true"
+        />
+      </div>
+
+      {/* Tiny CSS for blink animation */}
+      <style>{`
+        @keyframes blink { 50% { opacity: 0; } }
+      `}</style>
+
       <div className='max-w-4xl mx-auto px-4 py-3 flex items-center justify-between'>
         <NavLink to='/' className='font-semibold tracking-wide'>
           Our Wedding
