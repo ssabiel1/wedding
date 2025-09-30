@@ -25,22 +25,55 @@ function Nav() {
     { label: 'Schedule', to: '/schedule' },
     { label: 'Travel', to: '/travel' },
     { label: 'Stay', to: '/stay' },
-    { label: 'RSVP', to: '/rsvp' },   
+    { label: 'RSVP', to: '/rsvp' },
     { label: "Things To Do", to: "/things-to-do" },
     { label: 'FAQ', to: '/faq' },
   ];
+  
   return (
     <nav className='sticky top-0 z-50 border-b bg-white/80 backdrop-blur'>
       <div className='max-w-4xl mx-auto px-4 py-3 flex items-center justify-between'>
-        <NavLink to='/' className='font-semibold tracking-wide'>Our Wedding</NavLink>
-        <button className='md:hidden p-2 rounded focus:outline-none focus:ring'
-          onClick={()=>setOpen(o=>!o)} aria-expanded={open} aria-controls='nav-links'>Menu</button>
-        <ul id='nav-links' className={`md:flex md:gap-5 ${open ? 'block' : 'hidden'} md:block`}>
+        <NavLink to='/' className='font-semibold tracking-wide'>
+          Our Wedding
+        </NavLink>
+
+        {/* Refactored mobile menu button */}
+        <button
+          className="md:hidden flex items-center gap-2 px-4 py-2 border rounded-xl bg-gray-800 text-white focus:outline-none focus:ring"
+          onClick={() => setOpen((o) => !o)}
+          aria-expanded={open}
+          aria-controls="nav-links"
+        >
+          <span className="text-sm font-medium">Menu</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
+          </svg>
+        </button>
+
+        <ul
+          id='nav-links'
+          className={`md:flex md:gap-5 ${open ? 'block' : 'hidden'} md:block`}
+        >
           {links.map(l => (
             <li key={l.to}>
-              <NavLink to={l.to}
-                className={({isActive}) => `block py-2 md:py-0 hover:underline ${isActive ? 'font-medium' : ''}`}
-                onClick={()=>setOpen(false)}>{l.label}</NavLink>
+              <NavLink
+                to={l.to}
+                className={({ isActive }) =>
+                  `block py-2 md:py-0 hover:underline ${
+                    isActive ? 'font-medium' : ''
+                  }`
+                }
+                onClick={() => setOpen(false)}
+              >              
+                {l.label}
+              </NavLink>
             </li>
           ))}
         </ul>
@@ -59,28 +92,49 @@ function Layout({ children }){
   )
 }
 
-function Home(){
+function Home() {
   const date = new Date(SITE.dateISO);
-  const pretty = date.toLocaleString(undefined,{weekday:'long', month:'long', day:'numeric', year:'numeric'});
+  const pretty = date.toLocaleString(undefined, {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+
   return (
     <Layout>
-      <header className='text-center space-y-4'>
-      <div className="rounded-2xl overflow-hidden shadow aspect-[4/5] sm:aspect-[3/4] md:aspect-[16/9]">
-        <img src={heroImg} alt="Jamie & Sarah" className="h-full w-full object-cover object-[50%_6%] sm:object-[50%_12%] md:object-center"
-          style={{ objectPosition: "50% 30%" }}   // <- show more top (0% = very top)
-        />
-      </div>
-        <h1 className='text-3xl sm:text-4xl md:text-5xl font-serif'>{SITE.couple}</h1>
-        <p className='text-base sm:text-lg opacity-80'>{pretty} • {SITE.city}</p>
-        <NavLink to='/rsvp' className='inline-block w-full sm:w-auto px-6 py-3 border rounded-xl hover:shadow'>RSVP</NavLink>
+      <header className="text-center space-y-4">
+        <div className="rounded-2xl overflow-hidden shadow aspect-[4/5] sm:aspect-[3/4] md:aspect-[16/9]">
+          <img
+            src={heroImg}
+            alt="Jamie & Sarah"
+            className="h-full w-full object-cover object-[50%_6%] sm:object-[50%_12%] md:object-center"
+            style={{ objectPosition: "50% 30%" }} // <- show more top (0% = very top)
+          />
+        </div>
+
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif">
+          {SITE.couple}
+        </h1>
+        <p className="text-base sm:text-lg opacity-80">
+          {pretty} • {SITE.city}
+        </p>
+
+        {/* Highlighted RSVP button */}
+        <NavLink
+          to="/rsvp"
+          className="inline-block w-full sm:w-auto px-8 py-4 rounded-full bg-pink-600 text-white font-semibold shadow-lg hover:bg-pink-700 hover:shadow-xl transition"
+        >
+          RSVP Now
+        </NavLink>
       </header>
 
-      <section className='mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-start'>
+      <section className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
         <ScheduleCard />
         <TravelCard />
       </section>
     </Layout>
-  )
+  );
 }
 
 function Schedule() {
@@ -317,27 +371,48 @@ function Card({ title, children }){
     </div>
   )
 }
-function ScheduleCard(){
-  const first = SITE.schedule[0];
+function ScheduleCard() {
   return (
-    <Card title='Schedule'>
-      <ul className='text-sm space-y-2'>
-        {SITE.schedule.map(ev => (
-          <li key={ev.title}><span className='font-medium'>{ev.title}</span> — {new Date(ev.start).toLocaleTimeString("en-US", {hour:'numeric',minute:'2-digit', timeZone: "America/New_York"})}</li>
+    <Card title="Schedule">
+      <ul className="text-sm space-y-2">
+        {SITE.schedule.map((ev) => (
+          <li key={ev.title}>
+            <span className="font-medium">{ev.title}</span> —{" "}
+            {new Date(ev.start).toLocaleTimeString("en-US", {
+              hour: "numeric",
+              minute: "2-digit",
+              timeZone: "America/New_York",
+            })}
+          </li>
         ))}
       </ul>
-      <NavLink to='/schedule' className='inline-block mt-3 underline'>View full schedule</NavLink>
+      <NavLink
+        to="/schedule"
+        className="inline-block mt-4 px-5 py-2 rounded-full bg-gray-800 text-white text-sm font-medium shadow hover:bg-gray-900 transition"
+      >
+        View Full Schedule
+      </NavLink>
     </Card>
-  )
+  );
 }
-function TravelCard(){
+
+function TravelCard() {
   return (
-    <Card title='Travel'>
-      <p className='text-sm'>Fly into the closest or cost effective airport. Rideshare is easiest. Attire: beach party casual.</p>
-      <NavLink to='/travel' className='inline-block mt-3 underline'>Travel details</NavLink>
+    <Card title="Travel">
+      <p className="text-sm">
+        Fly into the closest or cost-effective airport. Rideshare is easiest.
+        Attire: beach party casual.
+      </p>
+      <NavLink
+        to="/travel"
+        className="inline-block mt-4 px-5 py-2 rounded-full bg-gray-800 text-white text-sm font-medium shadow hover:bg-gray-900 transition"
+      >
+        Travel Details
+      </NavLink>
     </Card>
-  )
+  );
 }
+
 
 export default function App(){
   return (
