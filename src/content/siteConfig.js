@@ -17,7 +17,7 @@ export const SITE = {
     { title: "Celebration", start: "2025-12-06T19:30:00-04:00", end: "2025-12-06T23:00:00-04:00" , location: "310 81st St. W Bradenton, FL 34209"}
   ],
   travelTips: [
-    "Fly into SRQ - Sarasota/Bradenton Airport (40 min drive).",
+    "Fly into SRQ - Sarasota/Bradenton Airport (26-40 min drive; depending on you location and permitting traffic).",
     "Fly into TPA - Tampa Airport (1hr 15 min drive; traffic permitting).",
     "Attire is beach casual.",
     "There are many places for lodging that are walking distance to the beach and shops. Please see our 'Stay' menu option",
