@@ -52,4 +52,9 @@ export const SITE = {
         "We will have food, draft beer and basic cocktail options! You are welcome to bring anything additional to drink. There is also a heated pool and hot tub—feel free to suit up!"
     }
   ],
+    navLinks: [   
+    { label: 'Stay', to: '/stay', blurb: 'Hotels, rentals, and tips' },    
+    { label: 'Things to Do', to: '/things-to-do', blurb: 'Beaches, food, fun' },  
+    { label: 'FAQ', to: '/faq', blurb: 'Common questions, answered' },
+  ],
 };

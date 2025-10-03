@@ -13,6 +13,7 @@ import emailjs from '@emailjs/browser';
 
 import { SITE } from './content/siteConfig';
 import heroImg from './img/IMG_3892.jpg';
+import NavCard from './pages/NavCard.jsx';
 import RSVPSuccess from './pages/RSVPSuccess.jsx';
 import Stay from './pages/Stay.jsx';
 import ThingsToDo from './pages/ThingsToDo.jsx';
@@ -385,7 +386,26 @@ function FAQ() {
     </Layout>
   );
 }
+function HomeMenuSection() {
+  return (
+    <section aria-labelledby="home-quick-links" className="mt-10">
+      <h2 id="home-quick-links" className="text-xl font-semibold mb-4">
+        Plan your trip
+      </h2>
 
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {SITE.navLinks.map(link => (
+          <NavCard
+            key={link.to}
+            to={link.to}
+            title={link.label}
+            blurb={link.blurb}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}
 function Card({ title, children }){
   return (
     <div className='border rounded-2xl p-5 bg-white/70'>
@@ -423,14 +443,13 @@ function TravelCard() {
   return (
     <Card title="Travel">
       <p className="text-sm">
-        Fly into the closest or cost-effective airport. Rideshare is easiest.
+        Fly into the closest or cost-effective airport. Rideshare (Uber/Lyft) is easiest.
         Attire: beach party casual.
       </p>
       <NavLink
         to="/travel"
         className="inline-block mt-4 px-5 py-2 rounded-full bg-gray-800 text-white text-sm font-medium shadow hover:bg-gray-900 transition"
-      >
-        Travel Details
+      >Travel Details
       </NavLink>
     </Card>
   );
