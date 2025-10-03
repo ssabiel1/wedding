@@ -20,8 +20,8 @@ export const SITE = {
     "Fly into SRQ - Sarasota/Bradenton Airport (26-40 min drive; depending on you location and permitting traffic).",
     "Fly into TPA - Tampa Airport (1hr 15 min drive; traffic permitting).",
     "Attire is beach casual.",
-    "There are many places for lodging that are walking distance to the beach and shops. Please see our 'Stay' menu option",
-    "Rideshare is easiest; car rentals; some areas have limited parking.",
+    "There are many places for lodging that are walking distance to the beach and shops. Please see our 'Stay' menu option.",
+    "Rideshare (Uber/Lyft) is easiest; car rentals; some areas have limited parking.",
     "There is also a free Island Trolley. Another option is the Monkey Bus which goes to mainland for only $5; you can schedule a ride.",   
   ],
   schedule: [
@@ -47,7 +47,7 @@ export const SITE = {
       end: "2025-12-06T22:00:00-05:00",
       location: "310 81st St W, Bradenton, FL 34209",
       notes:
-        "We will have food, draft beer, basic cocktail options and more! You are welcome to bring anything additional to drink if you desire something else. There is also a heated pool and hot tub—feel free to suit up!"
+        "We will have food, draft beer and basic cocktail options! You are welcome to bring anything additional to drink. There is also a heated pool and hot tub—feel free to suit up!"
     }
   ],
 };
