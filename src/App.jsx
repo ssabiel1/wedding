@@ -252,10 +252,15 @@ function Travel(){
   return (
     <Layout>
       <h1 className='text-2xl font-serif mb-6'>Travel</h1>
-      <p className='mb-3'><span className='font-medium'>Venue:</span> {SITE.venue.name}</p>
+      <p className='mb-3'><span className='font-bold'>Venue:</span> {SITE.venue.name}</p>
       <a className='underline' href={gmaps} target='_blank' rel='noreferrer'>Open in Google Maps</a>
       <ul className='list-disc pl-6 mt-4 space-y-1'>
-        {SITE.travelTips.map((t,i)=>(<li key={i}>{t}</li>))}
+        {SITE.travelTips.map((tip, i) =>  typeof tip === "string" ? (<li key={i}>{tip}</li>) : ( <li key={i}> {tip.text}{" "}  <a href={tip.link.to} className="underline"> {tip.link.label}
+      </a>
+    </li>
+  )
+)}
+
         <a className='underline' href={trans} target='_blank' rel='noreferrer'>Trolley/Bus Transport</a>
       </ul>
     </Layout>
@@ -346,7 +351,7 @@ function RSVP(){
 
 function FAQ() {
   const faqs = [
-    { q: 'Is there parking at the venue?', a: 'Limited; rideshare recommended.' },
+    { q: 'Is there parking at the venue?', a: 'Limited; rideshare (Uber/Lyft) recommended.' },
     { q: 'Are kids welcome?', a: 'We love them, but this is an adults-only celebration.' },
     { 
       q: 'What are the ceremony details?', 
@@ -358,7 +363,7 @@ function FAQ() {
     },
     { 
       q: 'What about the celebration?', 
-      a: 'We will have food, draft beer, basic cocktail options and more! You are welcome to bring any additional drinks you would like for yourself in case we are missing your favorite beverage. There is also a heated pool and hot tub—feel free to suit up!' 
+      a: 'We will have food, draft beer and basic cocktail options! You are welcome to bring anything additional to drink. There is also a heated pool and hot tub—feel free to suit up!' 
     },
     { 
       q: 'What is there to do in our free time?', 
