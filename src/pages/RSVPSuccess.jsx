@@ -16,6 +16,7 @@ const fmtICS = (d) =>
   new Date(d).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
 
 const icsString = ({ title, start, end, location }) => {
+  
   return [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
@@ -33,6 +34,8 @@ const icsString = ({ title, start, end, location }) => {
     'END:VCALENDAR',
   ].filter(Boolean).join('\r\n') + '\r\n';
 };
+const icsDataUrl = (event) =>
+  "data:text/calendar;charset=utf-8," + encodeURIComponent(icsString(event));
 
 const googleUrl = ({ title, start, end, location }) => {
   const params = new URLSearchParams({
@@ -128,18 +131,25 @@ export default function RSVPSuccess() {
             {datePretty && <> See you around <span className="font-medium">{datePretty}</span>!</>}
           </p>
 
-          {/* Primary actions: Add to Calendar */}
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            <button
-              onClick={addToCalendar}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-semibold bg-indigo-600 shadow-md hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400"
-              aria-label="Add ceremony to your calendar"
-            >
-              <span role="img" aria-hidden>📅</span>
-              Add to Apple/Outlook (.ics)
-            </button>
+          {/* Primary actions: compact & stacked */}
+          {ceremony && (
+            <div className="flex flex-col items-center gap-1">
+              {/* Universal: data URL works on iOS and desktop */}
+              <a
+                href={icsDataUrl({
+                  title: `${SITE.couple} — ${ceremony.title}`,
+                  start: ceremony.start,
+                  end: ceremony.end,
+                  location: SITE.venue?.name || SITE.city || '',
+                })}
+                download={`${ceremony.title}.ics`.replace(/[\\/:*?"<>|]/g, "_")}
+                className="inline-flex items-center justify-center px-2.5 py-1 rounded-full text-white text-[11px] font-normal shadow-sm whitespace-nowrap bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus-visible:ring-1 focus-visible:ring-indigo-400"
+                aria-label="Add ceremony to your calendar"
+              >
+                <span aria-hidden className="mr-1 text-xs">📅</span>
+                Add to Calendar
+              </a>
 
-            {ceremony && (
               <a
                 href={googleUrl({
                   title: `${SITE.couple} — ${ceremony.title}`,
@@ -149,12 +159,13 @@ export default function RSVPSuccess() {
                 })}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-green-700 bg-green-50 border border-green-200 hover:bg-green-100"
+                className="inline-flex items-center justify-center px-2.5 py-1 rounded-full text-[11px] font-medium whitespace-nowrap border border-green-200 text-green-700 bg-green-50 hover:bg-green-100 focus:outline-none focus-visible:ring-1 focus-visible:ring-green-300"
               >
                 Add to Google
               </a>
-            )}
-          </div>
+            </div>
+          )}
+
 
           {/* Secondary actions: all site links */}
           <div className="flex flex-wrap items-center justify-center gap-3 pt-2">

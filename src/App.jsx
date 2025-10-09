@@ -15,6 +15,9 @@ import Stay from './pages/Stay.jsx';
 import ThingsToDo from './pages/ThingsToDo.jsx';
 
 // ---- Add-to-Calendar helpers ----
+const icsDataUrl = (event) =>
+  "data:text/calendar;charset=utf-8," + encodeURIComponent(icsString(event));
+
 const isIOS = () =>
   /iPad|iPhone|iPod/.test(navigator.userAgent) ||
   (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
@@ -214,16 +217,7 @@ function Schedule() {
   const handleAddToCalendar = (ev) => {
     const location = ev.location || SITE.venue?.name || SITE.city;
 
-    if (isIOS()) {
-      // iPhone/iPad: open data URL so the Calendar sheet appears
-      const dataUrl =
-        "data:text/calendar;charset=utf-8," +
-        encodeURIComponent(icsString({ title: ev.title, start: ev.start, end: ev.end, location }));
-      window.location.href = dataUrl; // or window.open(dataUrl, "_blank")
-      return;
-    }
-
-    // Desktop/Android/etc.: download/open .ics
+    // Desktop/Android/etc.: download/open .ics via Blob
     const blob = createICSBlob({
       title: ev.title,
       start: ev.start,
@@ -248,61 +242,80 @@ function Schedule() {
       <ul className="space-y-3">
         {SITE.schedule.map((ev) => {
           const location = ev.location || SITE.venue?.name || SITE.city;
-          return (
-            <li key={ev.title} className="border rounded-xl p-4 space-y-2 bg-white/60">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                <div>
-                  <div className="font-medium text-rose-700">{ev.title}</div>
-                  <div className="text-sm text-gray-600">{location}</div>
-                </div>
 
-                <div className="text-sm text-gray-700">
-                  {new Date(ev.start).toLocaleTimeString("en-US", {
-                    hour: "numeric",
-                    minute: "2-digit",
-                    timeZone: "America/New_York",
-                  })}
-                  {" – "}
-                  {new Date(ev.end).toLocaleTimeString("en-US", {
-                    hour: "numeric",
-                    minute: "2-digit",
-                    timeZone: "America/New_York",
-                  })}{" "}
-                  EST
-                </div>
-
-                <div className="flex gap-3 justify-center sm:justify-end">
-                  <button
-                    type="button"
-                    onClick={() => handleAddToCalendar(ev)}
-                    className="text-sm underline text-indigo-600 hover:text-indigo-800"
-                  >
-                    Add to Apple/Outlook (.ics)
-                  </button>
-
-                  <a
-                    href={googleUrl({ title: ev.title, start: ev.start, end: ev.end, location })}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-sm underline text-green-700 hover:text-green-900"
-                  >
-                    Add to Google
-                  </a>
-                </div>
+      return (
+            <li key={ev.title} className="border rounded-2xl p-4 bg-white/60">
+          {/* 3-col on sm+, 1-col on mobile */}
+          <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto_auto] items-center gap-3">
+            {/* Left: title + location */}
+            <div className="min-w-0">
+              <div className="font-medium text-rose-700">{ev.title}</div>
+              <div className="text-sm text-gray-600 truncate">
+                {location}
               </div>
+            </div>
 
-              {ev.notes && (
-                <p className="text-sm italic text-gray-600 border-l-2 border-gray-300 pl-3 mt-1">
-                  {ev.notes}
-                </p>
-              )}
-            </li>
+            {/* Middle: time (fixed width so buttons align) */}
+            <div className="text-sm text-gray-700 sm:text-right sm:min-w-[180px]">
+              {new Date(ev.start).toLocaleTimeString("en-US", {
+                hour: "numeric",
+                minute: "2-digit",
+                timeZone: "America/New_York",
+              })}
+              {" – "}
+              {new Date(ev.end).toLocaleTimeString("en-US", {
+                hour: "numeric",
+                minute: "2-digit",
+                timeZone: "America/New_York",
+              })}{" "}
+              EST
+            </div>
+
+            {/* Actions: stack vertically; align right on sm+ */}
+        {/* Actions: stacked vertically, compact look */}
+        <div className="flex flex-col gap-1 sm:items-end">
+  <a
+    href={icsDataUrl({
+      title: ev.title,
+      start: ev.start,
+      end: ev.end,
+      location,
+    })}
+    download={`${ev.title}.ics`.replace(/[\\/:*?"<>|]/g, "_")}
+    className="inline-flex items-center justify-center px-2.5 py-1 rounded-full text-white text-[11px] font-normal shadow-sm whitespace-nowrap bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus-visible:ring-1 focus-visible:ring-indigo-400"
+    aria-label={`Add ${ev.title} to your calendar`}
+  >
+    <span aria-hidden className="mr-1 text-xs">📅</span>
+    Add to Calendar
+  </a>
+
+  <a
+    href={googleUrl({ title: ev.title, start: ev.start, end: ev.end, location })}
+    target="_blank"
+    rel="noreferrer"
+    className="inline-flex items-center justify-center px-2.5 py-1 rounded-full text-[11px] font-medium whitespace-nowrap border border-green-200 text-green-700 bg-green-50 hover:bg-green-100 focus:outline-none focus-visible:ring-1 focus-visible:ring-green-300"
+  >
+    Add to Google
+  </a>
+</div>
+
+
+  </div>
+
+  {ev.notes && (
+    <p className="text-sm italic text-gray-600 border-l-2 border-gray-300 pl-3 mt-3">
+      {ev.notes}
+    </p>
+  )}
+</li>
+
           );
         })}
       </ul>
     </Layout>
   );
 }
+
 
 
 function Travel(){
