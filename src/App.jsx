@@ -149,6 +149,19 @@ function Home() {
         <StayCard />
         <ThingsToDoCard />
       </section>
+      
+      <section className="mt-10 text-center">
+        <p className="text-lg sm:text-xl text-gray-800 font-serif">
+          Have more questions?{" "}
+          <NavLink
+            to="/faq"
+            className="text-[#2d3e50] font-semibold underline hover:text-[#1f2d3d] transition-colors"
+          >
+            View FAQs
+          </NavLink>
+        </p>
+      </section>
+
     </Layout>
   );
 }
