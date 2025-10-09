@@ -13,7 +13,51 @@ import RSVP from './pages/RSVP.jsx';
 import RSVPSuccess from './pages/RSVPSuccess.jsx';
 import Stay from './pages/Stay.jsx';
 import ThingsToDo from './pages/ThingsToDo.jsx';
-import { createICSBlob } from './utils/ics';
+
+// ---- Add-to-Calendar helpers ----
+const isIOS = () =>
+  /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+  (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+const fmtICS = (d) =>
+  new Date(d).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}Z$/, "Z");
+
+const icsString = ({ title, start, end, location }) => {
+  return [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//Wedding Site//Schedule//EN",
+    "CALSCALE:GREGORIAN",
+    "METHOD:PUBLISH",
+    "BEGIN:VEVENT",
+    `UID:${crypto.randomUUID()}@wedding`,
+    `DTSTAMP:${fmtICS(Date.now())}`,
+    `DTSTART:${fmtICS(start)}`,
+    `DTEND:${fmtICS(end)}`,
+    `SUMMARY:${title}`,
+    location ? `LOCATION:${location}` : null,
+    "END:VEVENT",
+    "END:VCALENDAR",
+  ]
+    .filter(Boolean)
+    .join("\r\n") + "\r\n";
+};
+
+// Minimal local ICS blob builder (so you don't need a separate utils file)
+const createICSBlob = (event) =>
+  new Blob([icsString(event)], { type: "text/calendar" });
+
+const googleUrl = ({ title, start, end, location }) => {
+  const params = new URLSearchParams({
+    action: "TEMPLATE",
+    text: title,
+    dates: `${fmtICS(start)}/${fmtICS(end)}`,
+    location: location || "",
+    details: "Added from the wedding site",
+  });
+  return `https://calendar.google.com/calendar/render?${params.toString()}`;
+};
+
 
 function Nav() {
   const [open, setOpen] = useState(false);
@@ -167,35 +211,51 @@ function Home() {
 }
 
 function Schedule() {
+  const handleAddToCalendar = (ev) => {
+    const location = ev.location || SITE.venue?.name || SITE.city;
+
+    if (isIOS()) {
+      // iPhone/iPad: open data URL so the Calendar sheet appears
+      const dataUrl =
+        "data:text/calendar;charset=utf-8," +
+        encodeURIComponent(icsString({ title: ev.title, start: ev.start, end: ev.end, location }));
+      window.location.href = dataUrl; // or window.open(dataUrl, "_blank")
+      return;
+    }
+
+    // Desktop/Android/etc.: download/open .ics
+    const blob = createICSBlob({
+      title: ev.title,
+      start: ev.start,
+      end: ev.end,
+      location,
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${ev.title}.ics`.replace(/[\\/:*?"<>|]/g, "_");
+    a.type = "text/calendar";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <Layout>
       <h1 className="text-2xl font-serif mb-6 text-rose-800">Schedule</h1>
 
       <ul className="space-y-3">
         {SITE.schedule.map((ev) => {
-          const url = URL.createObjectURL(
-            createICSBlob({
-              title: ev.title,
-              start: ev.start,
-              end: ev.end,
-              location: ev.location || SITE.venue?.name || SITE.city,
-            })
-          );
-
+          const location = ev.location || SITE.venue?.name || SITE.city;
           return (
             <li key={ev.title} className="border rounded-xl p-4 space-y-2 bg-white/60">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                 <div>
-                  {/* Title in accent color */}
                   <div className="font-medium text-rose-700">{ev.title}</div>
-
-                  {/* Location muted */}
-                  <div className="text-sm text-gray-600">
-                    {ev.location || SITE.venue?.name}
-                  </div>
+                  <div className="text-sm text-gray-600">{location}</div>
                 </div>
 
-                {/* Time neutral */}
                 <div className="text-sm text-gray-700">
                   {new Date(ev.start).toLocaleTimeString("en-US", {
                     hour: "numeric",
@@ -211,14 +271,24 @@ function Schedule() {
                   EST
                 </div>
 
-                {/* Add to Calendar link highlighted */}
-                <a
-                  href={url}
-                  download={`${ev.title}.ics`}
-                  className="text-sm underline w-full sm:w-auto text-center text-indigo-600 hover:text-indigo-800"
-                >
-                  Add to Calendar
-                </a>
+                <div className="flex gap-3 justify-center sm:justify-end">
+                  <button
+                    type="button"
+                    onClick={() => handleAddToCalendar(ev)}
+                    className="text-sm underline text-indigo-600 hover:text-indigo-800"
+                  >
+                    Add to Apple/Outlook (.ics)
+                  </button>
+
+                  <a
+                    href={googleUrl({ title: ev.title, start: ev.start, end: ev.end, location })}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-sm underline text-green-700 hover:text-green-900"
+                  >
+                    Add to Google
+                  </a>
+                </div>
               </div>
 
               {ev.notes && (
