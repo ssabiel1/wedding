@@ -151,6 +151,8 @@ function Home() {
       <section className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
         <ScheduleCard />
         <TravelCard />
+        <StayCard />
+        <ThingsToDoCard />
       </section>
     </Layout>
   );
@@ -159,7 +161,7 @@ function Home() {
 function Schedule() {
   return (
     <Layout>
-      <h1 className="text-2xl font-serif mb-6">Schedule</h1>
+      <h1 className="text-2xl font-serif mb-6 text-rose-800">Schedule</h1>
 
       <ul className="space-y-3">
         {SITE.schedule.map((ev) => {
@@ -173,20 +175,20 @@ function Schedule() {
           );
 
           return (
-            <li
-              key={ev.title}
-              className="border rounded-xl p-4 space-y-2"
-            >
-              {/* Top row: title/location, time, add-to-calendar */}
+            <li key={ev.title} className="border rounded-xl p-4 space-y-2 bg-white/60">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                 <div>
-                  <div className="font-medium">{ev.title}</div>
-                  <div className="text-sm opacity-70">
+                  {/* Title in accent color */}
+                  <div className="font-medium text-rose-700">{ev.title}</div>
+
+                  {/* Location muted */}
+                  <div className="text-sm text-gray-600">
                     {ev.location || SITE.venue?.name}
                   </div>
                 </div>
 
-                <div className="text-sm">
+                {/* Time neutral */}
+                <div className="text-sm text-gray-700">
                   {new Date(ev.start).toLocaleTimeString("en-US", {
                     hour: "numeric",
                     minute: "2-digit",
@@ -201,18 +203,18 @@ function Schedule() {
                   EST
                 </div>
 
+                {/* Add to Calendar link highlighted */}
                 <a
                   href={url}
                   download={`${ev.title}.ics`}
-                  className="text-sm underline w-full sm:w-auto text-center"
+                  className="text-sm underline w-full sm:w-auto text-center text-indigo-600 hover:text-indigo-800"
                 >
                   Add to Calendar
                 </a>
               </div>
 
-              {/* Inline note that matches your beige theme */}
               {ev.notes && (
-                <p className="text-sm italic opacity-80 border-l-2 border-gray-300 pl-3 mt-1">
+                <p className="text-sm italic text-gray-600 border-l-2 border-gray-300 pl-3 mt-1">
                   {ev.notes}
                 </p>
               )}
@@ -223,6 +225,7 @@ function Schedule() {
     </Layout>
   );
 }
+
 
 function Travel(){
   const gmaps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(SITE.venue.address)}`;
@@ -364,7 +367,7 @@ function FAQ() {
     },
     { 
       q: 'What about the celebration?', 
-      a: 'We will have food, draft beer and basic cocktail options! You are welcome to bring anything additional to drink. There is also a heated pool and hot tub—feel free to suit up!' 
+      a: 'We will have food, draft beer and basic cocktail options! You are welcome to bring anything additional to drink. There is also a heated pool and hot tub—feel free to suit up! Celebration is from 7-10 pm. It will end promptly at 10 pm.' 
     },
     { 
       q: 'What is there to do in our free time?', 
@@ -455,6 +458,38 @@ function TravelCard() {
   );
 }
 
+function StayCard() {
+  return (
+    <Card title="Stay">
+      <p className="text-sm">
+        We’ve provided links of nearby options for convenience. Book early to secure the
+        best rate and enjoy being close to the venue. 🏨
+      </p>
+      <NavLink
+        to="/stay"
+        className="inline-block mt-4 px-5 py-2 rounded-full bg-gray-800 text-white text-sm font-medium shadow hover:bg-gray-900 transition"
+      >
+        View Stay Options
+      </NavLink>
+    </Card>
+  );
+}
+
+function ThingsToDoCard() {
+  return (
+    <Card title="Things to Do">
+      <p className="text-sm">
+        Make the most of your trip! Explore local beaches, restaurants, and fun nearby attractions. 🌴 🍹 🎟️ 
+      </p>
+      <NavLink
+        to="/things-to-do"
+        className="inline-block mt-4 px-5 py-2 rounded-full bg-gray-800 text-white text-sm font-medium shadow hover:bg-gray-900 transition"
+      >
+        Explore More
+      </NavLink>
+    </Card>
+  );
+}
 
 export default function App(){
   return (

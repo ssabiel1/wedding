@@ -16,6 +16,8 @@ export default function ThingsToDo() {
     "Kayak/paddleboard the mangroves or Bimini Bay.",
     "Sunset dolphin cruise (Bradenton Beach marinas).",
     "Jet ski or parasail for a little adventure.",
+    "Even horseback riding.",
+    "And many more other options to explore!",
   ];
 
   const eatsAndBars = [
