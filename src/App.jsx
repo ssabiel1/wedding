@@ -1,7 +1,4 @@
-import {
-  useRef,
-  useState,
-} from 'react';
+import { useState } from 'react';
 
 import {
   NavLink,
@@ -9,11 +6,10 @@ import {
   Routes,
 } from 'react-router-dom';
 
-import emailjs from '@emailjs/browser';
-
 import { SITE } from './content/siteConfig';
 import heroImg from './img/IMG_3892.jpg';
 import NavCard from './pages/NavCard.jsx';
+import RSVP from './pages/RSVP.jsx';
 import RSVPSuccess from './pages/RSVPSuccess.jsx';
 import Stay from './pages/Stay.jsx';
 import ThingsToDo from './pages/ThingsToDo.jsx';
@@ -100,8 +96,7 @@ function Nav() {
     </nav>
   )
 }
-
-function Layout({ children }){
+export function Layout({ children }) {
   return (
     <div className='min-h-screen bg-[#f7f4ef] text-zinc-900'>
       <Nav />
@@ -153,7 +148,6 @@ function Home() {
         <TravelCard />
         <StayCard />
         <ThingsToDoCard />
-        <FAQCard/>
       </section>
     </Layout>
   );
@@ -271,88 +265,7 @@ function Travel(){
     </Layout>
   )
 }
-// function Stay(){
-//   return (
-//     <Layout>
-//       <h1 className='text-2xl font-serif mb-6'>Stay</h1>
-//       <div className='space-y-4'>
-//         {SITE.hotelBlocks.map(h => (
-//           <div key={h.name} className='border p-4 rounded-xl'>
-//             <div className='font-medium'>{h.name}</div>
-//             {h.code && <div className='text-sm'>Block code: <code>{h.code}</code></div>}
-//             {h.deadline && <div className='text-sm'>Book by {new Date(h.deadline).toLocaleDateString()}</div>}
-//             <a className='underline' href={h.link} target='_blank' rel='noreferrer'>Link</a>
-//           </div>                    
-//         ))}
-//       </div>
-//     </Layout>
-//   )
-// }
 
-function RSVP(){
-  const formRef = useRef(null);
-  const [status, setStatus] = useState('idle');
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      setStatus('sending');
-      await emailjs.sendForm(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID || 'YOUR_SERVICE_ID',
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'YOUR_TEMPLATE_ID',
-        formRef.current,
-        { publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'YOUR_PUBLIC_KEY' }
-      );
-      setStatus('sent');
-      formRef.current?.reset();
-      window.location.href = "/rsvp-success";
-      window.location.href = "/rsvp-success";
-    } catch (err) {
-      console.error(err);
-      setStatus('error');
-      alert('Sorry—there was a problem sending your RSVP. Please try again.');
-    }
-  };
-
-  return (
-    <Layout>
-      <h1 className='text-2xl font-serif mb-6'>RSVP</h1>
-      <form ref={formRef} onSubmit={onSubmit} name='rsvp' method='POST' data-netlify='true' className='space-y-3 max-w-md'>
-        <input type='hidden' name='form-name' value='rsvp' />
-        <label className='block'>
-          <span className='block mb-1'>Name</span>
-          <input className='w-full border p-2 rounded' name='name' placeholder='Your full name' />
-        </label>
-        <label className='block'>
-          <span className='block mb-1'>Email (optional)</span>
-          <input className='w-full border p-2 rounded' type='email' name='email' />
-        </label>
-        <label className="block">
-          <span className="block mb-1">Number of guests (including you)</span>
-          <select
-            name="guests"
-            defaultValue="1"
-            className="w-full border p-2 rounded"
-            required
-          >
-            {Array.from({ length: 11 }, (_, i) => (
-              <option key={i} value={i}>{i}</option>
-            ))}
-          </select>
-          <p className="text-xs opacity-70 mt-1">Select 0 if not attending.</p>
-        </label>
-        <label className='block'>
-          <span className='block mb-1'>Attending?</span>
-          <select className='w-full border p-2 rounded' name='attending'>
-            <option value='yes'>Yes</option>
-            <option value='no'>No</option>
-          </select>
-        </label>
-        <button className='w-full sm:w-auto px-5 py-3 border rounded-xl'>Send RSVP</button>
-      </form>
-    </Layout>
-  )
-}
 
 function FAQ() {
   const faqs = [
@@ -524,3 +437,14 @@ export default function App(){
     </Routes>
   )
 }
+// function Layout({ children }) {
+//   return (
+//     <div className='min-h-screen bg-[#f7f4ef] text-zinc-900'>
+//       <Nav />
+//       <main className='max-w-4xl mx-auto px-4 py-8'>{children}</main>
+//       <footer className='px-4 py-10 text-center text-sm opacity-70'>
+//         © {new Date().getFullYear()} {SITE.couple}
+//       </footer>
+//     </div>
+//   );
+// }
