@@ -153,6 +153,7 @@ function Home() {
         <TravelCard />
         <StayCard />
         <ThingsToDoCard />
+        <FAQCard/>
       </section>
     </Layout>
   );
@@ -490,6 +491,23 @@ function ThingsToDoCard() {
     </Card>
   );
 }
+
+function FAQCard() {
+  return (
+    <Card title="FAQ">
+      <p className="text-sm">
+        Facts Matter 😄
+      </p>
+      <NavLink
+        to="/faq"
+        className="inline-block mt-4 px-5 py-2 rounded-full bg-gray-800 text-white text-sm font-medium shadow hover:bg-gray-900 transition"
+      >
+        View Facts
+      </NavLink>
+    </Card>
+  );
+}
+
 
 export default function App(){
   return (
