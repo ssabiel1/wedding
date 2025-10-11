@@ -22,11 +22,22 @@ export default function Stay() {
 
       {/* Our Base */}
       <section className="border rounded-xl p-4">
-        <div className="font-medium">Our base</div>
-        <div className="text-sm">{BASE_ADDR}</div>
-        <a className="underline text-sm" href={g(BASE_ADDR)} target="_blank" rel="noreferrer">
-          Open in Google Maps
-        </a>
+        <div className="mt-5 mb-6 mx-auto max-w-md text-center bg-amber-50 border border-amber-200 rounded-xl py-3 px-4 shadow-sm">
+          <p className="text-lg font-serif text-amber-900 mb-1 flex items-center justify-center gap-1">
+            <span role="img" aria-label="house">🏡</span> <span>Our Base</span>
+          </p>
+          <p className="text-gray-800 font-medium">
+            310 81st St W, Bradenton, FL 34209, USA
+          </p>
+          <a
+            href="https://www.google.com/maps?q=310+81st+St+W,+Bradenton,+FL+34209"
+            target="_blank"
+            rel="noreferrer"
+            className="block mt-2 underline text-amber-800 hover:text-amber-900"
+          >
+            Open in Google Maps
+          </a>
+        </div>
       </section>
 
       {/* Hotel Blocks

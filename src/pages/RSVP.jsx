@@ -5,14 +5,16 @@ import {
 
 import emailjs from '@emailjs/browser';
 
-import { Layout } from '../App.jsx';
-
 export default function RSVP() {
   const formRef = useRef(null);
   const [status, setStatus] = useState("idle");
 
   const onSubmit = async (e) => {
     e.preventDefault();
+
+    const formData = new FormData(formRef.current);
+    const attending = formData.get("attending"); // "yes" | "no"
+
     try {
       setStatus("sending");
       await emailjs.sendForm(
@@ -21,11 +23,16 @@ export default function RSVP() {
         formRef.current,
         { publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "YOUR_PUBLIC_KEY" }
       );
+
       setStatus("sent");
       formRef.current?.reset();
 
       setTimeout(() => {
-        window.location.href = "/rsvp-success";
+        if (attending === "no") {
+          window.location.href = "/rsvp-thank-you";
+        } else {
+          window.location.href = "/rsvp-success";
+        }
       }, 600);
     } catch (err) {
       console.error(err);
@@ -35,7 +42,7 @@ export default function RSVP() {
   };
 
   return (
-    <Layout>
+    <>
       <h1 className="text-2xl font-serif mb-6">RSVP</h1>
 
       <form
@@ -67,9 +74,7 @@ export default function RSVP() {
           <span className="block mb-1">Number of guests (including you)</span>
           <select name="guests" defaultValue="1" className="w-full border p-2 rounded" required>
             {Array.from({ length: 11 }, (_, i) => (
-              <option key={i} value={i}>
-                {i}
-              </option>
+              <option key={i} value={i}>{i}</option>
             ))}
           </select>
           <p className="text-xs opacity-70 mt-1">Select 0 if not attending.</p>
@@ -77,7 +82,7 @@ export default function RSVP() {
 
         <label className="block">
           <span className="block mb-1">Attending?</span>
-          <select className="w-full border p-2 rounded" name="attending">
+          <select className="w-full border p-2 rounded" name="attending" required>
             <option value="yes">Yes</option>
             <option value="no">No</option>
           </select>
@@ -97,40 +102,24 @@ export default function RSVP() {
         >
           {status === "sending" ? (
             <span className="inline-flex items-center gap-2">
-              <svg
-                className="animate-spin h-5 w-5 text-white"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <circle
-                  className="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                ></circle>
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-                ></path>
+              <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
+                   fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10"
+                        stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor"
+                      d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
               </svg>
               Sending...
             </span>
           ) : status === "sent" ? (
             <span className="inline-flex items-center gap-2">
-              <span role="img" aria-label="check">
-                ✅
-              </span>{" "}
-              RSVP Sent!
+              <span role="img" aria-label="check">✅</span> RSVP Sent!
             </span>
           ) : (
             "Send RSVP"
           )}
         </button>
       </form>
-    </Layout>
+    </>
   );
 }
