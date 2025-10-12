@@ -27,7 +27,7 @@ export default function RSVPThanks() {
         <div className="p-6 text-center space-y-5">
           <h1 className="text-3xl font-serif">Thank you!</h1>
           <p className="opacity-80">
-            Thanks for your RSVP. We’ll miss celebrating with you but really appreciate you letting us know.
+            Thanks for your RSVP. We’ll miss celebrating with you but really appreciate you letting us know. Cheers!
           </p>
           <p className="text-sm opacity-70">If your plans change, you can submit the form again anytime.</p>
         </div>
