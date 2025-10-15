@@ -77,9 +77,9 @@ function Nav() {
         className="px-4 py-2 text-center text-sm bg-amber-100 text-amber-900 border-b border-amber-200"
         aria-live="polite"
       >
-        Ceremony will be on the beach 🌊 — final spot will be shared here soon
+        Ceremony on the beach 🌊 Holmes Beach on Anna Maria Island - 52nd St Beach Access Entrance.
         <span
-          className="ml-2 inline-block align-middle w-2 h-2 rounded-full bg-amber-600"
+          className="ml-2 inline-block align-middle w-2 h-2 rounded-full bg-green-500"
           style={{ animation: "blink 1s steps(2, start) infinite" }}
           aria-hidden="true"
         />
@@ -268,9 +268,25 @@ function Home() {
 
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif">{SITE.couple}</h1>
         <p className="text-base sm:text-lg opacity-80">
-          {pretty} • {SITE.city}
+          {pretty} • {SITE.city} • {SITE.directions}         
+          </p>
+             <a
+            href="https://www.google.com/maps/place/95+52nd+St,+Holmes+Beach,+FL+34217/@27.504995,-82.7170324,17z/data=!3m1!4b1!4m6!3m5!1s0x88c3103422d39225:0x8ffe7d37d34777c6!8m2!3d27.504995!4d-82.7170324!16s%2Fg%2F11c4ksb0ts?entry=ttu&g_ep=EgoyMDI1MTAxMi4wIKXMDSoASAFQAw%3D%3D"
+            target="_blank"
+            rel="noreferrer"
+            className="block mt-2 underline text-amber-800 hover:text-amber-900"
+          >Google Maps - Ceremony</a>
+          <p className="text-sm text-gray-700 mt-2">
+          <a
+            href="https://www.google.com/maps/place/Manatee+Public+Beach/@27.4970629,-82.7125162,17z/data=!3m1!4b1!4m6!3m5!1s0x88c311b57b41b083:0xaf9542dd70da0421!8m2!3d27.4970629!4d-82.7125162!16s%2Fg%2F11bwp6v1ff?entry=ttu&g_ep=EgoyMDI1MTAxMi4wIKXMDSoASAFQAw%3D%3D"
+            target="_blank"
+            rel="noreferrer"
+            className="underline text-amber-800 hover:text-amber-900"
+          >
+            Manatee Public Beach
+          </a>{" "}
+          offers free parking right by the sand — just a short, scenic stroll down the shoreline to our ceremony spot.
         </p>
-
         {/* Highlighted RSVP button */}
         <NavLink
           to="/rsvp"
@@ -384,9 +400,13 @@ function Schedule() {
 }
 
 function Travel() {
-  const gmaps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-    SITE.venue.address
-  )}`;
+  // ✅ Use the exact coordinates link for 52nd St Beach Access
+  const gmaps =
+    "https://www.google.com/maps/place/95+52nd+St,+Holmes+Beach,+FL+34217/@27.504995,-82.7170324,17z/data=!3m1!4b1!4m6!3m5!1s0x88c3103422d39225:0x8ffe7d37d34777c6!8m2!3d27.504995!4d-82.7170324!16s%2Fg%2F11c4ksb0ts?entry=ttu&g_ep=EgoyMDI1MTAxMi4wIKXMDSoASAFQAw%3D%3D";
+
+  const MANATEE_URL =
+    "https://www.google.com/maps/place/Manatee+Public+Beach/@27.4970629,-82.7125162,17z/data=!3m1!4b1!4m6!3m5!1s0x88c311b57b41b083:0xaf9542dd70da0421!8m2!3d27.4970629!4d-82.7125162!16s%2Fg%2F11bwp6v1ff?entry=ttu&g_ep=EgoyMDI1MTAxMi4wIKXMDSoASAFQAw%3D%3D";
+
   const trans =
     "https://annamariarentals.com/activities/anna-maria-island-bus-services/";
   const BASE_ADDR = "310 81st St W, Bradenton, FL 34209, USA";
@@ -415,13 +435,33 @@ function Travel() {
   return (
     <Layout>
       <h1 className="text-2xl font-serif mb-6">Travel</h1>
-      <p className="mb-3">
-        <span className="font-bold">Venue:</span> {SITE.venue.name}
-      </p>
-      <a className="underline" href={gmaps} target="_blank" rel="noreferrer">
-        Open in Google Maps
-      </a>
 
+      {/* Venue section with direct location link */}
+      <p className="mb-1">
+        <span className="font-bold">Venue:</span> Holmes Beach – 52nd St Beach Access • Limited Parking
+      </p>
+      <p className="mb-3">
+        <a className="underline" href={gmaps} target="_blank" rel="noreferrer">
+          Open in Google Maps
+        </a>
+      </p>
+
+      {/* Refined narrative intro before tips */}
+      <p className="text-sm text-gray-700">
+        Guests can also park at{" "}
+        <a
+          href={MANATEE_URL}
+          target="_blank"
+          rel="noreferrer"
+          className="underline text-amber-800 hover:text-amber-900"
+        >
+          Manatee Public Beach
+        </a>
+        , which offers free parking right by the sand. From there, enjoy a short, scenic
+        stroll down the shoreline to our ceremony spot.
+      </p>
+
+      {/* Travel tips list */}
       <ul className="list-disc pl-6 mt-4 space-y-1">
         {SITE.travelTips.map((tip, i) =>
           typeof tip === "string" ? (
@@ -435,7 +475,6 @@ function Travel() {
             </li>
           )
         )}
-
         <li>
           <a className="underline" href={trans} target="_blank" rel="noreferrer">
             Trolley/Bus Transport
@@ -443,6 +482,7 @@ function Travel() {
         </li>
       </ul>
 
+      {/* Nearby & Eats sections unchanged */}
       <h2 className="text-xl font-serif mt-8 mb-2">Nearby Spots</h2>
       <ul className="list-disc pl-6 space-y-1">
         {mapLinks.map((m) => (
@@ -486,13 +526,15 @@ function Travel() {
   );
 }
 
+
+
 function FAQ() {
   const faqs = [
-    { q: "Is there parking at the venue?", a: "Limited; rideshare (Uber/Lyft) recommended." },
-    { q: "Are kids welcome?", a: "We love them, but this is an adults-only celebration." },
+    { q: "Is there parking at the venue?", a: "Limited; rideshare (Uber/Lyft) recommended. You can also park at Manatee Public Beach. Only a short stroll in the sand to the Ceremony" },
+    { q: "Are kids welcome?", a: "We love them, but this is mostly an adults-only celebration." },
     {
       q: "What are the ceremony details?",
-      a: "We will update the site when we have a specific location on the beach. We are at the mercy of our wedding planners.",
+      a: SITE.city,
     },
     {
       q: "What should I expect at cocktail hour?",

@@ -1,8 +1,9 @@
 export const SITE = {
   couple: "Jamie Teet & Sarah Sabiel",
   dateISO: "2025-12-06T15:30:00-04:00",
-  city: "Anna Maria Island Beach, Florida",
-  venue: { name: "Anna Maria Island Beach", address: "101 Elm Ave, Anna Maria, FL 34216" },
+  city: "Holmes Beach 52nd St, Anna Maria Island",
+  directions: "Limited Parking.",
+  venue: { name: "Holmes Beach - 52nd St Beach Access", address: "52nd St", directions: 'https://www.google.com/maps/dir/?api=1&destination=27.505018,-82.717839'},
   hotelBlocks: [
     { name: "Airbnb", link: "https://www.airbnb.com/"},
     { name: "VRBO", link: "https://www.vrbo.com/"},
@@ -12,8 +13,8 @@ export const SITE = {
     { label: "Zola", url: "#" }
   ],
   schedule: [
-    { title: "Ceremony", start: "2025-12-06T17:00:00-04:00", end: "2025-12-06T18:00:00-04:00", location: "Anna Maria Island Beach"},
-    { title: "Cocktail Hour", start: "2025-12-06T18:00:00-04:00", end: "2025-12-06T19:00:00-04:00", location: "Anna Maria Island Beach"},
+    { title: "Ceremony", start: "2025-12-06T17:00:00-04:00", end: "2025-12-06T18:00:00-04:00", location: "Holmes Beach – 52nd St"},
+    { title: "Cocktail Hour", start: "2025-12-06T18:00:00-04:00", end: "2025-12-06T19:00:00-04:00", location: "Holmes Beach – 52nd St"},
     { title: "Celebration", start: "2025-12-06T19:30:00-04:00", end: "2025-12-06T23:00:00-04:00" , location: "310 81st St. W Bradenton, FL 34209"}
   ],
   travelTips: [
@@ -31,7 +32,7 @@ export const SITE = {
       title: "Ceremony",
       start: "2025-12-06T16:00:00-05:00",
       end: "2025-12-06T17:00:00-05:00",
-      location: "Anna Maria Island Beach",
+      location: "Holmes Beach-52nd St Beach Access Entrance",
       notes:
         "We will update the site when we have a specific location on the beach. We are at the mercy of our wedding planners."
     },
@@ -39,7 +40,7 @@ export const SITE = {
       title: "Cocktail Hour",
       start: "2025-12-06T17:00:00-05:00",
       end: "2025-12-06T18:00:00-05:00",
-      location: "Anna Maria Island Beach",
+      location: "Holmes Beach-52nd St Beach Access Entrance",
       notes:
         "There will be mostly champagne offered while we are taking photos. You are welcome to BYOB."
     },
