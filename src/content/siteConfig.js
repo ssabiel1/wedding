@@ -1,9 +1,9 @@
 export const SITE = {
   couple: "Jamie Teet & Sarah Sabiel",
   dateISO: "2025-12-06T15:30:00-04:00",
-  city: "Holmes Beach 52nd St, Anna Maria Island",
+  city: "Holmes Beach 28th St, Anna Maria Island",
   directions: "Limited Parking.",
-  venue: { name: "Holmes Beach - 52nd St Beach Access", address: "52nd St", directions: 'https://www.google.com/maps/dir/?api=1&destination=27.505018,-82.717839'},
+  venue: { name: "Holmes Beach - 28th St Beach Access", address: "28th St", directions: 'https://maps.app.goo.gl/BgDNPmAW46P18G2h8https://www.google.com/maps/place/Gulf+Dr+N%2F28th+St+N/@27.486311,-82.708476,17z/data=!3m1!4b1!4m6!3m5!1s0x88c311ba69add7c5:0x4b805d182c50f881!8m2!3d27.4863063!4d-82.7059011!16s%2Fg%2F11dxkft0ds?entry=ttu&g_ep=EgoyMDI1MTAyMC4wIKXMDSoASAFQAw%3D%3D'},
   hotelBlocks: [
     { name: "Airbnb", link: "https://www.airbnb.com/"},
     { name: "VRBO", link: "https://www.vrbo.com/"},
@@ -13,8 +13,8 @@ export const SITE = {
     { label: "Zola", url: "#" }
   ],
   schedule: [
-    { title: "Ceremony", start: "2025-12-06T17:00:00-04:00", end: "2025-12-06T18:00:00-04:00", location: "Holmes Beach – 52nd St"},
-    { title: "Cocktail Hour", start: "2025-12-06T18:00:00-04:00", end: "2025-12-06T19:00:00-04:00", location: "Holmes Beach – 52nd St"},
+    { title: "Ceremony", start: "2025-12-06T17:00:00-04:00", end: "2025-12-06T18:00:00-04:00", location: "Holmes Beach – 28th St"},
+    { title: "Cocktail Hour", start: "2025-12-06T18:00:00-04:00", end: "2025-12-06T19:00:00-04:00", location: "Holmes Beach – 28th St"},
     { title: "Celebration", start: "2025-12-06T19:30:00-04:00", end: "2025-12-06T23:00:00-04:00" , location: "310 81st St. W Bradenton, FL 34209"}
   ],
   travelTips: [
@@ -32,15 +32,15 @@ export const SITE = {
       title: "Ceremony",
       start: "2025-12-06T16:00:00-05:00",
       end: "2025-12-06T17:00:00-05:00",
-      location: "Holmes Beach-52nd St Beach Access Entrance",
+      location: "Holmes Beach-28th St Beach Access Entrance",
       notes:
-        "We will update the site when we have a specific location on the beach. We are at the mercy of our wedding planners."
+        "Limited parking. You can park at Manatee Public Beach. Take an 8 min stroll down the beach from there towards 28th St Beach Access."
     },
     {
       title: "Cocktail Hour",
       start: "2025-12-06T17:00:00-05:00",
       end: "2025-12-06T18:00:00-05:00",
-      location: "Holmes Beach-52nd St Beach Access Entrance",
+      location: "Holmes Beach-28th St Beach Access Entrance",
       notes:
         "There will be mostly champagne offered while we are taking photos. You are welcome to BYOB."
     },

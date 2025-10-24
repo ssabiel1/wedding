@@ -7,6 +7,7 @@ import {
   Routes,
 } from 'react-router-dom';
 
+import AmiBeachWalkMap from './component/AMIBeachWalkMap.jsx';
 import { SITE } from './content/siteConfig';
 import heroImg from './img/IMG_3892.jpg';
 import RSVP from './pages/RSVP.jsx';
@@ -77,7 +78,7 @@ function Nav() {
         className="px-4 py-2 text-center text-sm bg-amber-100 text-amber-900 border-b border-amber-200"
         aria-live="polite"
       >
-        Ceremony on the beach 🌊 Holmes Beach on Anna Maria Island - 52nd St Beach Access Entrance.
+        Ceremony on the beach 🌊 Holmes Beach on Anna Maria Island - 28th St Beach Access Entrance.
         <span
           className="ml-2 inline-block align-middle w-2 h-2 rounded-full bg-green-500"
           style={{ animation: "blink 1s steps(2, start) infinite" }}
@@ -271,7 +272,7 @@ function Home() {
           {pretty} • {SITE.city} • {SITE.directions}         
           </p>
              <a
-            href="https://www.google.com/maps/place/95+52nd+St,+Holmes+Beach,+FL+34217/@27.504995,-82.7170324,17z/data=!3m1!4b1!4m6!3m5!1s0x88c3103422d39225:0x8ffe7d37d34777c6!8m2!3d27.504995!4d-82.7170324!16s%2Fg%2F11c4ksb0ts?entry=ttu&g_ep=EgoyMDI1MTAxMi4wIKXMDSoASAFQAw%3D%3D"
+            href="https://www.google.com/maps/place/Gulf+Dr+N%2F28th+St+N/@27.486311,-82.708476,17z/data=!3m1!4b1!4m6!3m5!1s0x88c311ba69add7c5:0x4b805d182c50f881!8m2!3d27.4863063!4d-82.7059011!16s%2Fg%2F11dxkft0ds?entry=ttu&g_ep=EgoyMDI1MTAyMC4wIKXMDSoASAFQAw%3D%3D"
             target="_blank"
             rel="noreferrer"
             className="block mt-2 underline text-amber-800 hover:text-amber-900"
@@ -301,6 +302,7 @@ function Home() {
         <TravelCard />
         <StayCard />
         <ThingsToDoCard />
+
       </section>
 
       <section className="mt-10 text-center">
@@ -393,16 +395,20 @@ function Schedule() {
               )}
             </li>
           );
-        })}
+        })}             
+
       </ul>
-    </Layout>
+      <section className="max-w-5xl mx-auto p-4">
+        <AmiBeachWalkMap />
+      </section>
+    </Layout>    
   );
 }
 
 function Travel() {
-  // ✅ Use the exact coordinates link for 52nd St Beach Access
+  // ✅ Use the exact coordinates link for 28th St Beach Access
   const gmaps =
-    "https://www.google.com/maps/place/95+52nd+St,+Holmes+Beach,+FL+34217/@27.504995,-82.7170324,17z/data=!3m1!4b1!4m6!3m5!1s0x88c3103422d39225:0x8ffe7d37d34777c6!8m2!3d27.504995!4d-82.7170324!16s%2Fg%2F11c4ksb0ts?entry=ttu&g_ep=EgoyMDI1MTAxMi4wIKXMDSoASAFQAw%3D%3D";
+    "https://www.google.com/maps/place/Gulf+Dr+N%2F28th+St+N/@27.486311,-82.708476,17z/data=!3m1!4b1!4m6!3m5!1s0x88c311ba69add7c5:0x4b805d182c50f881!8m2!3d27.4863063!4d-82.7059011!16s%2Fg%2F11dxkft0ds?entry=ttu&g_ep=EgoyMDI1MTAyMC4wIKXMDSoASAFQAw%3D%3D";
 
   const MANATEE_URL =
     "https://www.google.com/maps/place/Manatee+Public+Beach/@27.4970629,-82.7125162,17z/data=!3m1!4b1!4m6!3m5!1s0x88c311b57b41b083:0xaf9542dd70da0421!8m2!3d27.4970629!4d-82.7125162!16s%2Fg%2F11bwp6v1ff?entry=ttu&g_ep=EgoyMDI1MTAxMi4wIKXMDSoASAFQAw%3D%3D";
@@ -438,7 +444,7 @@ function Travel() {
 
       {/* Venue section with direct location link */}
       <p className="mb-1">
-        <span className="font-bold">Venue:</span> Holmes Beach – 52nd St Beach Access • Limited Parking
+        <span className="font-bold">Venue:</span> Holmes Beach – 28th St Beach Access • Limited Parking • See Beach Walking Map Below
       </p>
       <p className="mb-3">
         <a className="underline" href={gmaps} target="_blank" rel="noreferrer">
@@ -457,7 +463,7 @@ function Travel() {
         >
           Manatee Public Beach
         </a>
-        , which offers free parking right by the sand. From there, enjoy a short, scenic
+        , which offers free parking right by the sand. From there, enjoy a short 8 min, scenic
         stroll down the shoreline to our ceremony spot.
       </p>
 
@@ -522,6 +528,9 @@ function Travel() {
       <p className="text-sm mt-6 text-gray-700">
         Base address for lodging/search reference: {BASE_ADDR}
       </p>
+       <section className="max-w-5xl mx-auto p-4">
+        <AmiBeachWalkMap />
+      </section>
     </Layout>
   );
 }
@@ -534,7 +543,7 @@ function FAQ() {
     { q: "Are kids welcome?", a: "We love them, but this is mostly an adults-only celebration." },
     {
       q: "What are the ceremony details?",
-      a: SITE.city,
+      a: SITE.city +". " + "There will be mostly champagne offered while we are taking photos. You are welcome to BYOB.",
     },
     {
       q: "What should I expect at cocktail hour?",
@@ -565,6 +574,9 @@ function FAQ() {
           </details>
         ))}
       </div>
+       <section className="max-w-5xl mx-auto p-4">
+        <AmiBeachWalkMap />
+      </section>
     </Layout>
   );
 }

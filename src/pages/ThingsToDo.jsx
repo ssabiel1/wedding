@@ -29,6 +29,7 @@ export default function ThingsToDo() {
     { label: "Rod & Reel Pier", q: "Rod & Reel Pier Anna Maria" },
     { label: "Tiki Bars near Coquina Beach", q: "tiki bar near Coquina Beach" },
     { label: "Tiki Bars on Anna Maria Island", q: "tiki bar Anna Maria Island" },
+    { label: "Drift Inn", q: "Drift Inn Bradenton" },
   ];
 
   return (
