@@ -7,7 +7,7 @@ import {
   Routes,
 } from 'react-router-dom';
 
-import AmiBeachWalkMap from './component/AMIBeachWalkMap.jsx';
+import AmiBeachWalkMap from './component/AmiBeachWalkMap.jsx';
 import { SITE } from './content/siteConfig';
 import heroImg from './img/IMG_3892.jpg';
 import RSVP from './pages/RSVP.jsx';
