@@ -251,7 +251,7 @@ function WeddingInfoCard() {
     <Card title="Wedding Day Info Guide">
       <p className="text-sm">
         Parking options, trolley stops, tracking, walking routes, and arrival
-        guidance for the 4:00 PM beach ceremony at the 28th St Beach Access.
+        guidance for the 4:00 PM beach ceremony at the 28th St. Beach Access.
       </p>
 
       <NavLink
