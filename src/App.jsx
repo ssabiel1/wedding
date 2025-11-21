@@ -80,7 +80,7 @@ function Nav() {
         className="px-4 py-2 text-center text-sm bg-amber-100 text-amber-900 border-b border-amber-200"
         aria-live="polite"
       >
-        Ceremony on the beach 🌊 Holmes Beach on Anna Maria Island - 28th St Beach Access Entrance.
+        Ceremony on the beach 🌊 Holmes Beach on Anna Maria Island - 28th St Beach Access Entrance - See 'Wedding Day Guide' Below - Limited Parking!
         <span
           className="ml-2 inline-block align-middle w-2 h-2 rounded-full bg-green-500"
           style={{ animation: "blink 1s steps(2, start) infinite" }}
@@ -317,7 +317,7 @@ function Home() {
           to="/rsvp"
           className="inline-block w-full sm:w-auto px-8 py-4 rounded-full bg-pink-600 text-white font-semibold shadow-lg hover:bg-pink-700 hover:shadow-xl transition"
         >
-          RSVP Now
+          RSVP-Closed!
         </NavLink>
       </header>
 

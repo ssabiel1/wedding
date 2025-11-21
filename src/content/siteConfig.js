@@ -50,7 +50,7 @@ export const SITE = {
       end: "2025-12-06T22:00:00-05:00",
       location: "310 81st St W, Bradenton, FL 34209",
       notes:
-        "We will have food, draft beer and basic cocktail options! You are welcome to bring anything additional to drink. There is also a heated pool and hot tub—feel free to suit up!"
+        "We will have food, draft beer, and basic cocktail options! BYOB is welcomed and suggested in case of limited options. We do have a large driveway, but we’re expecting quite a few guests—so ridesharing and carpooling are highly recommended."
     }
   ],
     navLinks: [   
