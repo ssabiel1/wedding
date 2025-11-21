@@ -54,7 +54,7 @@ export default function WeddingInfo() {
             </ul>
 
             <p className="leading-relaxed mb-3">
-              For a <strong>4:00 PM ceremony</strong>, please board the trolley between <strong>3:15–3:25 PM</strong>
+              For a <strong>4:00 PM ceremony</strong>, please board the trolley between <strong>3:15–3:25 PM </strong>
               to allow plenty of time to ride and walk to the ceremony spot.
             </p>
 
