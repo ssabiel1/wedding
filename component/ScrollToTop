@@ -1,0 +1,22 @@
+import { useEffect } from 'react';
+
+import { useLocation } from 'react-router-dom';
+
+export default function ScrollToTop({ selector }) {
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    // Let real anchor links (e.g. /stay#hotels) control their own scroll
+    if (hash) return;
+
+    if (selector) {
+      const el = document.querySelector(selector);
+      if (el) el.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      else window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    } else {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    }
+  }, [pathname, hash]);
+
+  return null;
+}
