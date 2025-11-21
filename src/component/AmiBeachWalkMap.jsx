@@ -39,11 +39,9 @@ export default function AmiBeachWalkMap() {
   return (
     <div className="w-full rounded-2xl overflow-hidden shadow-xl bg-white">
       <div className="p-4 md:p-6 space-y-3">
-        <h2 className="text-2xl font-semibold">Beach Walk: Manatee Public Beach → 28th St Access</h2>
+        <h2 className="text-2xl font-semibold">Manatee Public Beach → 28th St Access</h2>
         <p className="text-gray-600 leading-relaxed">
-          Park at <strong>Manatee Public Beach</strong> and enjoy an easy <strong>8–10 minute</strong> shoreline stroll
-          north to the <strong>28th St beach access</strong> in Holmes Beach. Stay on the hard-packed sand near the water
-          for the smoothest walk. Bathrooms, café, and parking are at the starting point.
+          
         </p>
         <div className="flex gap-3 flex-wrap">
           {/* <a
@@ -54,14 +52,14 @@ export default function AmiBeachWalkMap() {
           >
             Open in Google Maps (walking)
           </a> */}
-          <a
+          {/* <a
             href="https://www.holmesbeachfl.org/news_detail_T9_R98.php"
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-gray-100 text-gray-900 hover:bg-gray-200 transition"
           >
             Holmes Beach parking map
-          </a>
+          </a> */}
         </div>
       </div>
 

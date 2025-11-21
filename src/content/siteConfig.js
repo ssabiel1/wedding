@@ -34,7 +34,7 @@ export const SITE = {
       end: "2025-12-06T17:00:00-05:00",
       location: "Holmes Beach-28th St Beach Access Entrance",
       notes:
-        "Limited parking. You can park at Manatee Public Beach. Take an 8 min stroll down the beach from there towards 28th St Beach Access."
+        "Limited parking. "
     },
     {
       title: "Cocktail Hour",
@@ -42,11 +42,11 @@ export const SITE = {
       end: "2025-12-06T18:00:00-05:00",
       location: "Holmes Beach-28th St Beach Access Entrance",
       notes:
-        "There will be mostly champagne offered while we are taking photos. You are welcome to BYOB."
+        "Some champagne offered while we are taking photos. You are welcome to BYOB."
     },
     {
       title: "Celebration",
-      start: "2025-12-06T19:00:00-05:00",
+      start: "2025-12-06T18:30:00-05:00",
       end: "2025-12-06T22:00:00-05:00",
       location: "310 81st St W, Bradenton, FL 34209",
       notes:

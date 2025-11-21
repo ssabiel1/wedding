@@ -22,7 +22,7 @@ function Nav() {
         className="px-4 py-2 text-center text-sm bg-amber-100 text-amber-900 border-b border-amber-200"
         aria-live="polite"
       >
-        Ceremony will be on the beach 🌊 at <strong>Manatee Public Beach (52nd St, Holmes Beach)</strong>
+        Ceremony will be on the beach 🌊 at <strong>Manatee Public Beach (28th St, Holmes Beach)</strong>
         <span
           className="ml-2 inline-block align-middle w-2 h-2 rounded-full bg-amber-600"
           style={{ animation: "blink 1s steps(2, start) infinite" }}

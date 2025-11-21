@@ -7,7 +7,6 @@ import {
   Routes,
 } from 'react-router-dom';
 
-import AmiBeachWalkMap from './component/AmiBeachWalkMap.jsx';
 import { SITE } from './content/siteConfig';
 import heroImg from './img/IMG_3892.jpg';
 import RSVP from './pages/RSVP.jsx';
@@ -15,6 +14,7 @@ import RSVPSuccess from './pages/RSVPSuccess.jsx';
 import RSVPThanks from './pages/RSVPThanks.jsx';
 import Stay from './pages/Stay.jsx';
 import ThingsToDo from './pages/ThingsToDo.jsx';
+import WeddingInfo from './pages/WeddingInfo.jsx';
 
 /* ---------------------- Add-to-Calendar helpers ---------------------- */
 const fmtICS = (d) =>
@@ -63,12 +63,14 @@ function Nav() {
   const [open, setOpen] = useState(false);
   const links = [
     { label: "Home", to: "/" },
+    { label: "Wedding Day Guide", to: "/wedding-info" },    
     { label: "Schedule", to: "/schedule" },
     { label: "Travel", to: "/travel" },
     { label: "Stay", to: "/stay" },
     { label: "RSVP", to: "/rsvp" },
     { label: "Things To Do", to: "/things-to-do" },
     { label: "FAQ", to: "/faq" },
+   
   ];
 
   return (
@@ -244,6 +246,24 @@ function FAQCard() {
     </Card>
   );
 }
+function WeddingInfoCard() {
+  return (
+    <Card title="Wedding Day Info Guide">
+      <p className="text-sm">
+        Parking options, trolley stops, tracking, walking routes, and arrival
+        guidance for the 4:00 PM beach ceremony at the 28th St Beach Access.
+      </p>
+
+      <NavLink
+        to="/wedding-info"
+        className="inline-block mt-4 px-5 py-2 rounded-full bg-gray-800 text-white text-sm font-medium shadow hover:bg-gray-900 transition"
+      >
+        View Wedding Day Guide
+      </NavLink>
+    </Card>
+  );
+}
+
 
 /* ------------------------------ Pages ------------------------------ */
 function Home() {
@@ -277,17 +297,21 @@ function Home() {
             rel="noreferrer"
             className="block mt-2 underline text-amber-800 hover:text-amber-900"
           >Google Maps - Ceremony</a>
-          <p className="text-sm text-gray-700 mt-2">
-          <a
-            href="https://www.google.com/maps/place/Manatee+Public+Beach/@27.4970629,-82.7125162,17z/data=!3m1!4b1!4m6!3m5!1s0x88c311b57b41b083:0xaf9542dd70da0421!8m2!3d27.4970629!4d-82.7125162!16s%2Fg%2F11bwp6v1ff?entry=ttu&g_ep=EgoyMDI1MTAxMi4wIKXMDSoASAFQAw%3D%3D"
-            target="_blank"
-            rel="noreferrer"
-            className="underline text-amber-800 hover:text-amber-900"
-          >
-            Manatee Public Beach
-          </a>{" "}
-          offers free parking right by the sand — just a short, scenic stroll down the shoreline to our ceremony spot.
-        </p>
+
+            <p className="text-lg font-medium text-gray-800 mt-3">
+            <span>
+              There is limited parking. Please see{" "}
+              <a
+                href="/wedding-info"
+                className="underline text-amber-700 hover:text-amber-900 font-semibold"
+              >
+                Wedding Day Guide
+              </a>
+              .
+            </span>
+          </p>
+
+
         {/* Highlighted RSVP button */}
         <NavLink
           to="/rsvp"
@@ -299,6 +323,7 @@ function Home() {
 
       <section className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
         <ScheduleCard />
+        <WeddingInfoCard />
         <TravelCard />
         <StayCard />
         <ThingsToDoCard />
@@ -357,22 +382,7 @@ function Schedule() {
 
                 {/* Actions */}
                 <div className="flex flex-col gap-1 sm:items-end">
-                  <a
-                    href={icsDataUrl({
-                      title: ev.title,
-                      start: ev.start,
-                      end: ev.end,
-                      location,
-                    })}
-                    download={`${ev.title}.ics`.replace(/[\\/:*?"<>|]/g, "_")}
-                    className="inline-flex items-center justify-center px-2.5 py-1 rounded-full text-white text-[11px] font-normal shadow-sm whitespace-nowrap bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus-visible:ring-1 focus-visible:ring-indigo-400"
-                    aria-label={`Add ${ev.title} to your calendar`}
-                  >
-                    <span aria-hidden className="mr-1 text-xs">📅</span>
-                    Add to Calendar
-                  </a>
-
-                  <a
+                    <a
                     href={googleUrl({
                       title: ev.title,
                       start: ev.start,
@@ -383,24 +393,34 @@ function Schedule() {
                     rel="noreferrer"
                     className="inline-flex items-center justify-center px-2.5 py-1 rounded-full text-[11px] font-medium whitespace-nowrap border border-green-200 text-green-700 bg-green-50 hover:bg-green-100 focus:outline-none focus-visible:ring-1 focus-visible:ring-green-300"
                   >
-                    Add to Google
+                    Add to Google Calendar <span aria-hidden className="mr-1 text-xs">📅</span>
                   </a>
                 </div>
               </div>
 
               {ev.notes && (
-                <p className="text-sm italic text-gray-600 border-l-2 border-gray-300 pl-3 mt-3">
-                  {ev.notes}
-                </p>
-              )}
+              <p className="text-sm italic text-gray-600 border-l-2 border-gray-300 pl-3 mt-3">
+                {ev.notes}
+                {ev.title.toLowerCase() === "ceremony" && (
+                  <>
+                    {" "}
+                    <a
+                      href="/wedding-info"
+                      className="underline text-amber-800 hover:text-amber-900"
+                    >
+                      Wedding Day Guest Guide
+                    </a>
+                  </>
+                )}
+              </p>
+            )}
+
             </li>
           );
         })}             
 
       </ul>
-      <section className="max-w-5xl mx-auto p-4">
-        <AmiBeachWalkMap />
-      </section>
+
     </Layout>    
   );
 }
@@ -411,7 +431,7 @@ function Travel() {
     "https://www.google.com/maps/place/Gulf+Dr+N%2F28th+St+N/@27.486311,-82.708476,17z/data=!3m1!4b1!4m6!3m5!1s0x88c311ba69add7c5:0x4b805d182c50f881!8m2!3d27.4863063!4d-82.7059011!16s%2Fg%2F11dxkft0ds?entry=ttu&g_ep=EgoyMDI1MTAyMC4wIKXMDSoASAFQAw%3D%3D";
 
   const MANATEE_URL =
-    "https://www.google.com/maps/place/Manatee+Public+Beach/@27.4970629,-82.7125162,17z/data=!3m1!4b1!4m6!3m5!1s0x88c311b57b41b083:0xaf9542dd70da0421!8m2!3d27.4970629!4d-82.7125162!16s%2Fg%2F11bwp6v1ff?entry=ttu&g_ep=EgoyMDI1MTAxMi4wIKXMDSoASAFQAw%3D%3D";
+    "https://experience.arcgis.com/experience/90fdc443c47f43d3bdb0832863aa8b43";
 
   const trans =
     "https://annamariarentals.com/activities/anna-maria-island-bus-services/";
@@ -444,29 +464,21 @@ function Travel() {
 
       {/* Venue section with direct location link */}
       <p className="mb-1">
-        <span className="font-bold">Venue:</span> Holmes Beach – 28th St Beach Access • Limited Parking • See Beach Walking Map Below
+        <span className="font-bold">Venue:</span> Holmes Beach – 28th St Beach Access • Limited Parking •                  <>
+                    {" "}
+                    <a
+                      href="/wedding-info"
+                      className="underline text-amber-800 hover:text-amber-900"
+                    >
+                      Wedding Day Guide
+                    </a>
+                  </>
       </p>
       <p className="mb-3">
         <a className="underline" href={gmaps} target="_blank" rel="noreferrer">
           Open in Google Maps
         </a>
-      </p>
-
-      {/* Refined narrative intro before tips */}
-      <p className="text-sm text-gray-700">
-        Guests can also park at{" "}
-        <a
-          href={MANATEE_URL}
-          target="_blank"
-          rel="noreferrer"
-          className="underline text-amber-800 hover:text-amber-900"
-        >
-          Manatee Public Beach
-        </a>
-        , which offers free parking right by the sand. From there, enjoy a short 8 min, scenic
-        stroll down the shoreline to our ceremony spot.
-      </p>
-
+      </p>   
       {/* Travel tips list */}
       <ul className="list-disc pl-6 mt-4 space-y-1">
         {SITE.travelTips.map((tip, i) =>
@@ -528,9 +540,7 @@ function Travel() {
       <p className="text-sm mt-6 text-gray-700">
         Base address for lodging/search reference: {BASE_ADDR}
       </p>
-       <section className="max-w-5xl mx-auto p-4">
-        <AmiBeachWalkMap />
-      </section>
+     
     </Layout>
   );
 }
@@ -539,7 +549,19 @@ function Travel() {
 
 function FAQ() {
   const faqs = [
-    { q: "Is there parking at the venue?", a: "Limited; rideshare (Uber/Lyft) recommended. You can also park at Manatee Public Beach. Only a short stroll in the sand to the Ceremony" },
+        {
+      q: "Where can I find full parking and trolley instructions?",
+      a: (
+        <span>
+          All detailed transportation info is available on our{" "}
+          <a href="/wedding-info" className="underline text-amber-800 hover:text-amber-900">
+            Wedding Day Guide
+          </a>{" "}
+          page.
+        </span>
+      ),
+    },
+
     { q: "Are kids welcome?", a: "We love them, but this is mostly an adults-only celebration." },
     {
       q: "What are the ceremony details?",
@@ -574,12 +596,12 @@ function FAQ() {
           </details>
         ))}
       </div>
-       <section className="max-w-5xl mx-auto p-4">
-        <AmiBeachWalkMap />
-      </section>
+
     </Layout>
   );
 }
+
+
 /* ------------------------------------------------------------------- */
 
 export default function App() {
@@ -593,6 +615,7 @@ export default function App() {
       <Route path="/rsvp" element={<Layout><RSVP /></Layout>} />
       <Route path="/rsvp-success" element={<Layout><RSVPSuccess /></Layout>} />
       <Route path="/rsvp-thank-you" element={<Layout><RSVPThanks /></Layout>} />
+      <Route path="/wedding-info" element={<WeddingInfo />} />
       <Route path="/faq" element={<FAQ />} />
       <Route path="*" element={<Layout><p>Page not found.</p></Layout>} />
     </Routes>
